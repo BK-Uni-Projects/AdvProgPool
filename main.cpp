@@ -4,6 +4,7 @@ Main Program - Pool Game V3
 #include <stdio.h>
 #include <tchar.h>
 #include <math.h>
+#include "glm\glm.hpp"
 
 #include "freeglut\include\GL\freeglut.h"
 #include "colours.h"
@@ -13,7 +14,6 @@ Main Program - Pool Game V3
 /*-----------------------------------------------------------
 Macros
 -----------------------------------------------------------*/
-#define TWO_PI			(6.2832f)
 #define	SIM_UPDATE_MS	(10)
 //rendering options
 #define DRAW_SOLID	(0)
