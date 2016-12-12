@@ -1,3 +1,4 @@
+#pragma once
 /*------------------------------------------------------------------------
   Header for Some Vector Classes
   ------------------------------------------------------------------------*/
@@ -14,7 +15,6 @@ class vec2
 public:
 	double 	elem[2];
 
-public:
     vec2(){}
     vec2(double x, double y){elem[0]=x; elem[1]=y;}
     vec2(double x){elem[0]=elem[1]=x;}
