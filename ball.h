@@ -9,23 +9,28 @@
 /*-----------------------------------------------------------
 Macros
 -----------------------------------------------------------*/
-#define BALL_RADIUS		(0.05f)
-#define BALL_MASS		(0.1f)
-#define SMALL_VELOCITY		(0.01f)
+const float gCoeffRestitution = 0.5f;
+const float gCoeffFriction = 0.03f;
+const float gGravityAccn = 9.8f;
+
+const float BALL_RADIUS = 0.05f;
+const float BALL_MASS = 0.1f;
+const float SMALL_VELOCITY = 0.05f;
 
 class ball
 {
-	static int ballIndexCnt;
 public:
+	static int ballIndexCnt;
+
 	vec2	position;
 	vec2	velocity;
 	float	radius;
 	float	mass;
 	int		index;
 
-	ball(): position(0.0), velocity(0.0), radius(BALL_RADIUS), 
-		mass(BALL_MASS) {index = ballIndexCnt++; Reset();}
-	
+	ball() : position(0.0), velocity(0.0), radius(BALL_RADIUS), mass(BALL_MASS) {
+		index = ballIndexCnt++; Reset();
+	}
 	// mechanics
 	void Reset(void);
 	void ApplyImpulse(vec2 imp);
@@ -34,8 +39,8 @@ public:
 
 	// cushion collisions
 	void DoPlaneCollision(const cushion &c);
-	bool HasHitPlane(const cushion &c) const;
-	void HitPlane(const cushion &c);
+	bool HasHitCushion(const cushion &c) const;
+	void HitCushion(const cushion &c);
 
 	// ball collisions
 	void DoBallCollision(ball &b);
@@ -43,8 +48,8 @@ public:
 	void HitBall(ball &b);
 
 	// pocket collisions
-	void DoPocketCollision(pocket& p);
+	void DoPocketCollision(pocket& p) const;
 	bool HasHitPocket(const pocket& pocket) const;
-	void HitPocket(pocket& pocket);
+	void HitPocket(pocket& pocket) const;
 };
 

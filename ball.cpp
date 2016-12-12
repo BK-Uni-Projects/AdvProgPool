@@ -9,11 +9,6 @@
 
 extern table gTable;
 
-float gCoeffRestitution = 0.5f;
-float gCoeffFriction = 0.03f;
-float gGravityAccn = 9.8f;
-
-
 int ball::ballIndexCnt = 0;
 
 void ball::Reset(void)
@@ -29,8 +24,8 @@ void ball::Reset(void)
 		return;
 	}
 	
-	static const float sep = (BALL_RADIUS*3.0f);
-	static const float rowSep = (BALL_RADIUS*2.5f);
+	static const float sep = (BALL_RADIUS*2.0f);
+	static const float rowSep = (BALL_RADIUS*1.5f);
 	int row = 1;
 	int rowIndex = index;
 	while(rowIndex > row)
@@ -63,16 +58,6 @@ void ball::ApplyFrictionForce(int ms)
 	else velocity += velocityChange;
 }
 
-void ball::DoBallCollision(ball &b)
-{
-	if(HasHitBall(b)) HitBall(b);
-}
-
-void ball::DoPlaneCollision(const cushion &b)
-{
-	if(HasHitPlane(b)) HitPlane(b);
-}
-
 void ball::Update(int ms)
 {
 	//apply friction
@@ -83,65 +68,21 @@ void ball::Update(int ms)
 	if(velocity.Magnitude()<SMALL_VELOCITY) velocity = 0.0;
 }
 
-bool ball::HasHitPlane(const cushion &c) const
-{
-	//if moving away from plane, cannot hit
-	if(velocity.Dot(c.normal) >= 0.0) return false;
-	
-	//if in front of plane, then have not hit
-	vec2 relPos = position - c.vertices[0];
-	double sep = relPos.Dot(c.normal);
-	if(sep > radius) return false;
-	return true;
+/**	Ball collision methods*/
+void ball::DoBallCollision(ball &b) {
+	if (HasHitBall(b)) HitBall(b);
 }
 
-bool ball::HasHitBall(const ball &b) const
-{
-	//work out relative position of ball from other ball,
-	//distance between balls
-	//and relative velocity
+bool ball::HasHitBall(const ball &b) const {
 	vec2 relPosn = position - b.position;
-	float dist = (float) relPosn.Magnitude();
-	vec2 relPosnNorm = relPosn.Normalised();
+	float dist = (float)relPosn.Magnitude();
+	vec2 relPosnNorm = relPosn.Normalised();	
 	vec2 relVelocity = velocity - b.velocity;
+	
+	if (relVelocity.Dot(relPosnNorm) >= 0.0) return false;			//if moving apart, cannot have hit	
+	if (dist > (radius + b.radius)) return false;					//if distnce is more than sum of radii, have not hit
 
-	//if moving apart, cannot have hit
-	if(relVelocity.Dot(relPosnNorm) >= 0.0) return false;
-	//if distnce is more than sum of radii, have not hit
-	if(dist > (radius+b.radius)) return false;
 	return true;
-}
-
-void ball::HitPlane(const cushion &c)
-{
-	//reverse velocity component perpendicular to plane  
-	double comp = velocity.Dot(c.normal) * (1.0+gCoeffRestitution);
-	vec2 delta = -(c.normal * comp);
-	velocity += delta; 
-
-	//make some particles
-	int n = (rand()%4)+3;
-	vec3 pos(position(0),radius/2.0,position(1));
-	vec3 oset(c.normal(0),0.0,c.normal(1));
-	pos+=(oset*radius);
-	for(int i=0;i<n;i++)
-	{
-		gTable.parts.AddParticle(pos);
-	}
-
-/*
-	//assume elastic collision
-	//find plane normal
-	vec2 planeNorm = gPlaneNormal_Left;
-	//split velocity into 2 components:
-	//find velocity component perpendicular to plane
-	vec2 perp = planeNorm*(velocity.Dot(planeNorm));
-	//find velocity component parallel to plane
-	vec2 parallel = velocity - perp;
-	//reverse perpendicular component
-	//parallel component is unchanged
-	velocity = parallel + (-perp)*gCoeffRestitution;
-*/
 }
 
 void ball::HitBall(ball &b)
@@ -154,34 +95,58 @@ void ball::HitBall(ball &b)
 	//(NB the collision plane is defined by the point of contact and the contact normal)
 	float perpV = (float)velocity.Dot(relDir);
 	float perpV2 = (float)b.velocity.Dot(relDir);
-	vec2 parallelV = velocity-(relDir*perpV);
-	vec2 parallelV2 = b.velocity-(relDir*perpV2);
-	
+	vec2 parallelV = velocity - (relDir*perpV);
+	vec2 parallelV2 = b.velocity - (relDir*perpV2);
+
 	//Calculate new perpendicluar components:
 	//v1 = (2*m2 / m1+m2)*u2 + ((m1 - m2)/(m1+m2))*u1;
 	//v2 = (2*m1 / m1+m2)*u1 + ((m2 - m1)/(m1+m2))*u2;
 	float sumMass = mass + b.mass;
-	float perpVNew = (float)((perpV*(mass-b.mass))/sumMass) + (float)((perpV2*(2.0*b.mass))/sumMass);
-	float perpVNew2 = (float)((perpV2*(b.mass-mass))/sumMass) + (float)((perpV*(2.0*mass))/sumMass);
-	
+	float perpVNew = (float)((perpV*(mass - b.mass)) / sumMass) + (float)((perpV2*(2.0*b.mass)) / sumMass);
+	float perpVNew2 = (float)((perpV2*(b.mass - mass)) / sumMass) + (float)((perpV*(2.0*mass)) / sumMass);
+
 	//find new velocities by adding unchanged parallel component to new perpendicluar component
 	velocity = parallelV + (relDir*perpVNew);
 	b.velocity = parallelV2 + (relDir*perpVNew2);
 
 
 	//make some particles
-	int n = (rand()%5)+5;
-	vec3 pos(position(0),radius/2.0,position(1));
-	vec3 oset(relDir(0),0.0,relDir(1));
-	pos+=(oset*radius);
-	for(int i=0;i<n;i++)
+	int n = (rand() % 5) + 5;
+	vec3 pos(position(0), radius / 2.0, position(1));
+	vec3 oset(relDir(0), 0.0, relDir(1));
+	pos += (oset*radius);
+	for (int i = 0; i < n; i++)
 	{
 		gTable.parts.AddParticle(pos);
 	}
 }
 
+/** Cushion Collision methods */
+void ball::DoPlaneCollision(const cushion &b) {
+	if (HasHitCushion(b)) HitCushion(b);
+}
+
+bool ball::HasHitCushion(const cushion &c) const {
+	//if moving away from plane, cannot hit
+	if (velocity.Dot(c.normal) >= 0.0) return false;
+
+	//if in front of plane, then have not hit
+	vec2 relPos = position - c.vertices[0];
+	double sep = relPos.Dot(c.normal);
+	if (sep > radius) return false;
+	return true;
+}
+
+void ball::HitCushion(const cushion &c) {
+	//reverse velocity component perpendicular to plane
+	double comp = velocity.Dot(c.normal) * (1.0 + gCoeffRestitution);
+	vec2 delta = -(c.normal * comp);
+	velocity += delta;
+}
+
 /** Pocket Collision routines*/
-void ball::DoPocketCollision(pocket &p) {
+void ball::DoPocketCollision(pocket &p) const
+{
 	if (HasHitPocket(p)) HitPocket(p);
 }
 
@@ -191,8 +156,8 @@ bool ball::HasHitPocket(const pocket &pocket) const {
 	return false;	// TODO yeah... make it work
 }
 
-void ball::HitPocket(pocket &pocket) {
-
+void ball::HitPocket(pocket &pocket) const
+{
 	//make some particles
 	int n = (rand() % 5) + 5;
 	vec3 pos(pocket.position.x, 1.0f, pocket.position.y);

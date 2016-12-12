@@ -15,9 +15,6 @@ Main Program - Pool Game V3
 Macros
 -----------------------------------------------------------*/
 #define	SIM_UPDATE_MS	(10)
-//rendering options
-#define DRAW_SOLID	(0)
-
 
 //Create Table
 table gTable;
@@ -140,6 +137,8 @@ void DoCamera(int ms)
 
 void RenderScene(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.0f, 0.4f, 0.4f, 0.0f);				// set default background colour
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, DARKMAGENTA);	// set default draw colour
 
 	//set camera
 	glLoadIdentity();
@@ -150,16 +149,28 @@ void RenderScene(void) {
 	for(int i=0;i<NUM_BALLS;i++)
 	{
 		glPushMatrix();
-		glTranslatef(gTable.balls[i].position(0),(BALL_RADIUS/2.0),gTable.balls[i].position(1));
-		#if DRAW_SOLID
-		glutSolidSphere(gTable.balls[i].radius,32,32);
-		#else
-		glutWireSphere(gTable.balls[i].radius,12,12);
-		#endif
-		glPopMatrix();
-		glColor3f(0.0,0.0,1.0);
+			glTranslatef(gTable.balls[i].position(0), (BALL_RADIUS / 2.0f), gTable.balls[i].position(1));
+
+			if (i > 0 && i % 2 == 1) {
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, CRIMSON);
+			}
+			else if (i > 0 && i % 2 == 0) {
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, YELLOW);
+			}
+
+			if (i == 0) {
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, WHITE);
+			}
+
+			if (i == 9) {
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, BLACK);
+			}
+
+			glutSolidSphere(gTable.balls[i].radius, 32, 32);
+
+		glPopMatrix();		
 	}
-	glColor3f(1.0,1.0,1.0);
+	
 
 	//draw the table
 	for(int i=0;i<NUM_CUSHIONS;i++)
@@ -174,14 +185,10 @@ void RenderScene(void) {
 
 	for(int i=0;i<gTable.parts.num;i++)
 	{
-		glColor3f(1.0,0.0,0.0);
+		
 		glPushMatrix();
 		glTranslatef(gTable.parts.particles[i]->position(0),gTable.parts.particles[i]->position(1),gTable.parts.particles[i]->position(2));
-		#if DRAW_SOLID
 		glutSolidSphere(0.002f,32,32);
-		#else
-		glutWireSphere(0.002f,12,12);
-		#endif
 		glPopMatrix();		
 	}
 
@@ -192,10 +199,10 @@ void RenderScene(void) {
 		glBegin(GL_LINES);
 		float cuex = sin(gCueAngle) * gCuePower;
 		float cuez = cos(gCueAngle) * gCuePower;
-		glColor3f(1.0,0.0,0.0);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, BLACK);
 		glVertex3f (gTable.balls[0].position(0), (BALL_RADIUS/2.0f), gTable.balls[0].position(1));
 		glVertex3f ((gTable.balls[0].position(0)+cuex), (BALL_RADIUS/2.0f), (gTable.balls[0].position(1)+cuez));
-		glColor3f(1.0,1.0,1.0);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, DARKMAGENTA);
 		glEnd();
 	}
 
@@ -438,9 +445,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	glutInitWindowSize(1000,700);
 	//glutFullScreen();
 	glutCreateWindow("MSc Workshop : Pool Game");
-	#if DRAW_SOLID
 	InitLights();
-	#endif
 	glutDisplayFunc(RenderScene);
 	glutTimerFunc(SIM_UPDATE_MS, UpdateScene, SIM_UPDATE_MS);
 	glutReshapeFunc(ChangeSize);
