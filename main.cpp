@@ -2,7 +2,6 @@
 Main Program - Pool Game V3
 -----------------------------------------------------------*/
 #include <stdio.h>
-#include <tchar.h>
 #include <math.h>
 #include "glm\glm.hpp"
 
@@ -16,7 +15,7 @@ Main Program - Pool Game V3
 /*-----------------------------------------------------------
 Macros
 -----------------------------------------------------------*/
-#define	SIM_UPDATE_MS	(10)
+const int SIM_UPDATE_MS = 10;
 
 //Create Table
 table gTable;
@@ -26,8 +25,7 @@ void ChangeWindowSize(int width, int height);
 void InitLights(void);
 void UpdateScene(int ms);
 
-int _tmain(int argc, _TCHAR* argv[])
-{
+int main(int argc, char* argv[]){
 	gTable.SetupCushions();
 	gTable.SetupPockets();
 
@@ -36,7 +34,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	glutInitWindowPosition(0,0);
 	glutInitWindowSize(1000,700);
 	//glutFullScreen();
-	glutCreateWindow("MSc Workshop : Pool Game");
+	glutCreateWindow("Marc Chapman 054888139 - Assessment 1: Pool Game");
 	InitLights();
 	glutDisplayFunc(RenderScene);
 	glutTimerFunc(SIM_UPDATE_MS, UpdateScene, SIM_UPDATE_MS);
@@ -62,7 +60,6 @@ void RenderScene(void) {
 	gluLookAt(gCamPos(0),gCamPos(1),gCamPos(2),gCamLookAt(0),gCamLookAt(1),gCamLookAt(2),0.0f,1.0f,0.0f);
 
 	//draw the ball
-	glColor3f(1.0,1.0,1.0);
 	for(int i=0;i<NUM_BALLS;i++)
 	{
 		glPushMatrix();
@@ -107,11 +104,12 @@ void RenderScene(void) {
 	}
 
 	for(int i=0;i<gTable.parts.num;i++)
-	{
-		
+	{		
+		GLfloat RANDOMCOLOUR[] = { RandColourVal(), RandColourVal(), RandColourVal() };
 		glPushMatrix();
 		glTranslatef(gTable.parts.particles[i]->position(0),gTable.parts.particles[i]->position(1),gTable.parts.particles[i]->position(2));
-		glutSolidSphere(0.002f,32,32);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, RANDOMCOLOUR);
+		glutSolidSphere(0.005f, 5, 5);
 		glPopMatrix();		
 	}
 
@@ -134,18 +132,18 @@ void RenderScene(void) {
 	glutSwapBuffers();
 }
 
-void ChangeWindowSize(int w, int h) {
+void ChangeWindowSize(int width, int height) {
 
 	// Prevent a divide by zero, when window is too short
 	// (you cant make a window of zero width).
-	if(h == 0) h = 1;
-	float ratio = 1.0* w / h;
+	if (height == 0) height = 1;
+	float ratio = 1.0* width / height;
 
 	// Reset the coordinate system before modifying
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	// Set the viewport to be the entire window
-	glViewport(0, 0, w, h);
+	glViewport(0, 0, width, height);
 
 	// Set the correct perspective.
 	gluPerspective(45,ratio,0.2,1000);
@@ -158,15 +156,17 @@ void ChangeWindowSize(int w, int h) {
 void InitLights(void)
 {
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 50.0 };
-	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
-	glClearColor (0.0, 0.0, 0.0, 0.0);
-	glShadeModel (GL_SMOOTH);
+	GLfloat mat_shininess[] = { 80.0 };
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+
+	glShadeModel (GL_SMOOTH);
+
+
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-	GLfloat light_ambient[] = { 2.0, 2.0, 2.0, 1.0 };
+	GLfloat light_ambient[] = { .5, .5, .5, 1 };
 	glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient);
 
 	glEnable(GL_LIGHTING);

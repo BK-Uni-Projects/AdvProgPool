@@ -18,14 +18,9 @@ void table::SetupCushions(void)
 	cushions[2].vertices[0](0) = TABLE_X; 
 	cushions[2].vertices[0](1) = TABLE_Z; 
 	cushions[2].vertices[1](0) = TABLE_X; 
-	cushions[2].vertices[1](1) = -TABLE_Z;// +0.3;
+	cushions[2].vertices[1](1) = -TABLE_Z;
 
-	//cushions[3].vertices[0](0) = TABLE_X; 
-	//cushions[3].vertices[0](1) = -TABLE_Z + 0.3; 
-	//cushions[3].vertices[1](0) = TABLE_X - 0.3; 
-	//cushions[3].vertices[1](1) = -TABLE_Z; 
-
-	cushions[3].vertices[0](0) = TABLE_X;// -0.3;
+	cushions[3].vertices[0](0) = TABLE_X;
 	cushions[3].vertices[0](1) = -TABLE_Z; 
 	cushions[3].vertices[1](0) = -TABLE_X; 
 	cushions[3].vertices[1](1) = -TABLE_Z; 

@@ -15,9 +15,9 @@ void particleSet::AddParticle(const vec3 &pos)
 	particles[num] = new particle;
 	particles[num]->position = pos;
 
-	particles[num]->velocity(0) = ((rand() % 200)-100)/200.0;
-	particles[num]->velocity(2) = ((rand() % 200)-100)/200.0;
-	particles[num]->velocity(1) = 2.0*((rand() % 100)/100.0);
+	particles[num]->velocity(0) = ((rand() % 200)-100)/300.0;
+	particles[num]->velocity(2) = ((rand() % 200)-100)/300.0;
+	particles[num]->velocity(1) = 2.0*((rand() % 100)/50.0);
 
 	num++;
 }
