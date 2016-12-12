@@ -21,7 +21,37 @@ Macros
 //Create Table
 table gTable;
 
+void RenderScene(void);
+void ChangeWindowSize(int width, int height);
+void InitLights(void);
+void UpdateScene(int ms);
 
+int _tmain(int argc, _TCHAR* argv[])
+{
+	gTable.SetupCushions();
+	gTable.SetupPockets();
+
+	glutInit(&argc, ((char **)argv));
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE| GLUT_RGBA);
+	glutInitWindowPosition(0,0);
+	glutInitWindowSize(1000,700);
+	//glutFullScreen();
+	glutCreateWindow("MSc Workshop : Pool Game");
+	InitLights();
+	glutDisplayFunc(RenderScene);
+	glutTimerFunc(SIM_UPDATE_MS, UpdateScene, SIM_UPDATE_MS);
+	glutReshapeFunc(ChangeWindowSize);
+	glutIdleFunc(RenderScene);
+	
+	glutIgnoreKeyRepeat(1);
+	glutKeyboardFunc(KeyboardFunc);
+	glutKeyboardUpFunc(KeyboardUpFunc);
+	glutSpecialFunc(SpecKeyboardFunc);
+	glutSpecialUpFunc(SpecKeyboardUpFunc);
+	glEnable(GL_DEPTH_TEST);
+	glutMainLoop();
+
+}
 void RenderScene(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.4f, 0.4f, 0.0f);				// set default background colour
@@ -98,7 +128,7 @@ void RenderScene(void) {
 	glutSwapBuffers();
 }
 
-void ChangeSize(int w, int h) {
+void ChangeWindowSize(int w, int h) {
 
 	// Prevent a divide by zero, when window is too short
 	// (you cant make a window of zero width).
@@ -165,27 +195,4 @@ void UpdateScene(int ms)
 	glutPostRedisplay();
 }
 
-int _tmain(int argc, _TCHAR* argv[])
-{
-	gTable.SetupCushions();
 
-	glutInit(&argc, ((char **)argv));
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE| GLUT_RGBA);
-	glutInitWindowPosition(0,0);
-	glutInitWindowSize(1000,700);
-	//glutFullScreen();
-	glutCreateWindow("MSc Workshop : Pool Game");
-	InitLights();
-	glutDisplayFunc(RenderScene);
-	glutTimerFunc(SIM_UPDATE_MS, UpdateScene, SIM_UPDATE_MS);
-	glutReshapeFunc(ChangeSize);
-	glutIdleFunc(RenderScene);
-	
-	glutIgnoreKeyRepeat(1);
-	glutKeyboardFunc(KeyboardFunc);
-	glutKeyboardUpFunc(KeyboardUpFunc);
-	glutSpecialFunc(SpecKeyboardFunc);
-	glutSpecialUpFunc(SpecKeyboardUpFunc);
-	glEnable(GL_DEPTH_TEST);
-	glutMainLoop();
-}
