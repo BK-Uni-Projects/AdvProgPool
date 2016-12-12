@@ -18,17 +18,17 @@ void table::SetupCushions(void)
 	cushions[2].vertices[0](0) = TABLE_X; 
 	cushions[2].vertices[0](1) = TABLE_Z; 
 	cushions[2].vertices[1](0) = TABLE_X; 
-	cushions[2].vertices[1](1) = -TABLE_Z + 0.3; 
+	cushions[2].vertices[1](1) = -TABLE_Z;// +0.3;
 
-	cushions[3].vertices[0](0) = TABLE_X; 
-	cushions[3].vertices[0](1) = -TABLE_Z + 0.3; 
-	cushions[3].vertices[1](0) = TABLE_X - 0.3; 
+	//cushions[3].vertices[0](0) = TABLE_X; 
+	//cushions[3].vertices[0](1) = -TABLE_Z + 0.3; 
+	//cushions[3].vertices[1](0) = TABLE_X - 0.3; 
+	//cushions[3].vertices[1](1) = -TABLE_Z; 
+
+	cushions[3].vertices[0](0) = TABLE_X;// -0.3;
+	cushions[3].vertices[0](1) = -TABLE_Z; 
+	cushions[3].vertices[1](0) = -TABLE_X; 
 	cushions[3].vertices[1](1) = -TABLE_Z; 
-
-	cushions[4].vertices[0](0) = TABLE_X - 0.3; 
-	cushions[4].vertices[0](1) = -TABLE_Z; 
-	cushions[4].vertices[1](0) = -TABLE_X; 
-	cushions[4].vertices[1](1) = -TABLE_Z; 
 
 	for(int i=0;i<NUM_CUSHIONS;i++)
 	{
@@ -40,11 +40,11 @@ void table::SetupCushions(void)
 void table::SetupPockets()
 {
 	pocket[0].position = glm::vec2(-TABLE_X, TABLE_Z);			// Baulk left
-	pocket[0].position = glm::vec2(TABLE_X, TABLE_Z);			// baulk right
-	pocket[0].position = glm::vec2(TABLE_X, -TABLE_Z);			// bottom right
-	pocket[0].position = glm::vec2(-TABLE_X, -TABLE_Z);			// bottom left
-	pocket[0].position = glm::vec2(TABLE_X, 0);					// center right
-	pocket[0].position = glm::vec2(-TABLE_X, 0);				// center left
+	pocket[1].position = glm::vec2(TABLE_X, TABLE_Z);			// baulk right
+	pocket[2].position = glm::vec2(TABLE_X, -TABLE_Z);			// bottom right
+	pocket[3].position = glm::vec2(-TABLE_X, -TABLE_Z);			// bottom left
+	pocket[4].position = glm::vec2(TABLE_X, 0);					// center right
+	pocket[5].position = glm::vec2(-TABLE_X, 0);				// center left
 }
 
 void table::Update(int ms)

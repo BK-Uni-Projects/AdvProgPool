@@ -14,7 +14,7 @@ Macros
 #define TABLE_Z			(1.2f)
 #define TABLE_Y			(0.1f)
 #define NUM_BALLS		(7)		
-#define NUM_CUSHIONS	(5)	
+#define NUM_CUSHIONS	(4)	
 #define NUM_POCKETS		(6)
 
 
