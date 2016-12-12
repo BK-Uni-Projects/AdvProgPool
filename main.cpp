@@ -6,7 +6,9 @@ Main Program - Pool Game V3
 #include <math.h>
 
 #include "freeglut\include\GL\freeglut.h"
+#include "colours.h"
 #include "table.h"
+#include "DrawPrimatives.h"
 
 /*-----------------------------------------------------------
 Macros
