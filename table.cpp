@@ -37,6 +37,16 @@ void table::SetupCushions(void)
 	}
 }
 
+void table::SetupPockets()
+{
+	pocket[0].position = glm::vec2(-TABLE_X, TABLE_Z);			// Baulk left
+	pocket[0].position = glm::vec2(TABLE_X, TABLE_Z);			// baulk right
+	pocket[0].position = glm::vec2(TABLE_X, -TABLE_Z);			// bottom right
+	pocket[0].position = glm::vec2(-TABLE_X, -TABLE_Z);			// bottom left
+	pocket[0].position = glm::vec2(TABLE_X, 0);					// center right
+	pocket[0].position = glm::vec2(-TABLE_X, 0);				// center left
+}
+
 void table::Update(int ms)
 {
 	//check for collisions for each ball

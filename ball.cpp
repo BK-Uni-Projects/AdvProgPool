@@ -5,6 +5,7 @@
 
 #include "ball.h"
 #include "table.h"
+#include "pocket.h"
 
 extern table gTable;
 
@@ -177,4 +178,27 @@ void ball::HitBall(ball &b)
 	{
 		gTable.parts.AddParticle(pos);
 	}
+}
+
+/** Pocket Collision routines*/
+void ball::DoPocketCollision(pocket &p) {
+	if (HasHitPocket(p)) HitPocket(p);
+}
+
+
+bool ball::HasHitPocket(const pocket &pocket) const {
+
+	return false;	// TODO yeah... make it work
+}
+
+void ball::HitPocket(pocket &pocket) {
+
+	//make some particles
+	int n = (rand() % 5) + 5;
+	vec3 pos(pocket.position.x, 1.0f, pocket.position.y);
+
+	for (int i = 0; i<n; i++) {
+		gTable.parts.AddParticle(pos);
+	}
+
 }
