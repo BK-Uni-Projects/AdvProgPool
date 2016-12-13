@@ -70,19 +70,28 @@ void ball::Update(int ms)
 
 /**	Ball collision methods*/
 void ball::DoBallCollision(ball &b) {
-	if (HasHitBall(b)) HitBall(b);
-}
-
-bool ball::HasHitBall(const ball &b) const {
+	bool hashitball = false;
 	vec2 relPosn = position - b.position;
-	float dist = (float)relPosn.Magnitude();
-	vec2 relPosnNorm = relPosn.Normalised();	
+	float dist = float(relPosn.Magnitude());
+	vec2 relPosnNorm = relPosn.Normalised();
 	vec2 relVelocity = velocity - b.velocity;
-	
-	if (relVelocity.Dot(relPosnNorm) >= 0.0) return false;			//if moving apart, cannot have hit	
-	if (dist > (radius + b.radius)) return false;					//if distnce is more than sum of radii, have not hit
 
-	return true;
+	// collision tests
+	if (relVelocity.Dot(relPosnNorm) >= 0.0)		//if moving apart, cannot have hit	
+	{
+		hashitball = false;
+	}
+
+	if (dist > (radius + b.radius))					//if distnce is more than sum of radii, have not hit
+	{
+		hashitball = false;
+	}
+
+	if (hashitball==true)
+	{
+		HitBall(b);
+	}
+		
 }
 
 void ball::HitBall(ball &b)
@@ -93,8 +102,8 @@ void ball::HitBall(ball &b)
 	//split velocities into 2 parts:  one component perpendicular, and one parallel to 
 	//the collision plane, for both balls
 	//(NB the collision plane is defined by the point of contact and the contact normal)
-	float perpV = (float)velocity.Dot(relDir);
-	float perpV2 = (float)b.velocity.Dot(relDir);
+	float perpV = float(velocity.Dot(relDir));
+	float perpV2 = float(b.velocity.Dot(relDir));
 	vec2 parallelV = velocity - (relDir*perpV);
 	vec2 parallelV2 = b.velocity - (relDir*perpV2);
 
