@@ -1,27 +1,28 @@
 #include "pocket.h"
+#include "ball.h"
 
 pocket::pocket()
 {
-	drawRadius = 1.25f;
-	colRadius = .5f;
+	drawRadius = BALL_RADIUS * 2;
+	colRadius = BALL_RADIUS;
 }
 
 
-pocket::pocket(glm::vec2 pos)
+pocket::pocket(vec2 pos)
 {
 	position = pos;
-	drawRadius = 1.25f;
-	colRadius = .5f;
+	drawRadius = BALL_RADIUS*2;
+	colRadius = BALL_RADIUS;
 }
 
-pocket::pocket(glm::vec2 pos, float drawRad, float colRad)
+pocket::pocket(vec2 pos, float drawRad, float colRad)
 {
 	position = pos;
 	drawRadius = drawRad;
 	colRadius = colRad;
 }
 
-void pocket::setPosition(glm::vec2 pos)
+void pocket::setPosition(vec2 pos)
 {
 	position = pos;
 }

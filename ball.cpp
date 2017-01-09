@@ -160,16 +160,23 @@ void ball::DoPocketCollision(pocket &p) const
 }
 
 
-bool ball::HasHitPocket(const pocket &pocket) const {
+bool ball::HasHitPocket(const pocket &pocket) const 
+{
+	vec2 relPosn = position - pocket.position;
+	float dist = (float)relPosn.Magnitude();
+	vec2 relPosnNorm = relPosn.Normalised();
+	vec2 relVelocity = velocity - 0.0f;
 
-	return false;	// TODO yeah... make it work
+	if (relVelocity.Dot(relPosnNorm) >= 0.0) return false;			//if moving apart, cannot have hit	
+	if (dist > (radius + pocket.colRadius)) return false;					//if distnce is more than sum of radii, have not hit
+	return true;	// TODO yeah... make it work
 }
 
 void ball::HitPocket(pocket &pocket) const
 {
 	//make some particles
 	int n = (rand() % 5) + 5;
-	vec3 pos(pocket.position.x, 1.0f, pocket.position.y);
+	vec3 pos(pocket.position(0), 1.0f, pocket.position(1));
 
 	for (int i = 0; i<n; i++) {
 		gTable.parts.AddParticle(pos);
