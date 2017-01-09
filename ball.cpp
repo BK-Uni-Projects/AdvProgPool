@@ -11,6 +11,16 @@ extern table gTable;
 
 int ball::ballIndexCnt = 0;
 
+bool ball::isCueball() const
+{
+	if (index==0)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void ball::Reset(void)
 {
 	//set velocity to zero

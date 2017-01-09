@@ -31,6 +31,9 @@ public:
 	ball() : position(0.0), velocity(0.0), radius(BALL_RADIUS), mass(BALL_MASS) {
 		index = ballIndexCnt++; Reset();
 	}
+
+	bool isCueball() const;
+
 	// mechanics
 	void Reset(void);
 	void ApplyImpulse(vec2 imp);
