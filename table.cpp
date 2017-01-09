@@ -34,12 +34,15 @@ void table::SetupCushions(void)
 
 void table::SetupPockets()
 {
-	pocket[0].position = glm::vec2(-TABLE_X, TABLE_Z);			// Baulk left
-	pocket[1].position = glm::vec2(TABLE_X, TABLE_Z);			// baulk right
-	pocket[2].position = glm::vec2(TABLE_X, -TABLE_Z);			// bottom right
-	pocket[3].position = glm::vec2(-TABLE_X, -TABLE_Z);			// bottom left
-	pocket[4].position = glm::vec2(TABLE_X, 0);					// center right
-	pocket[5].position = glm::vec2(-TABLE_X, 0);				// center left
+	pocket[0].position(0) = -TABLE_X;	pocket[0].position(1) = TABLE_Z  ;			// Baulk left
+	pocket[3].position(0) = -TABLE_X ;	pocket[3].position(1) = -TABLE_Z  ;			// bottom left
+
+	pocket[1].position(0) = TABLE_X ;	pocket[1].position(1) = TABLE_Z  ;			// baulk right
+	pocket[2].position(0) = TABLE_X ;	pocket[2].position(1) = -TABLE_Z  ;			// bottom right
+	
+
+	pocket[4].position(0) = TABLE_X ;	pocket[4].position(1) = 0;					// center right
+	pocket[5].position(0) = -TABLE_X ;	pocket[5].position(1) = 0;					// center left
 }
 
 void table::Update(int ms)
@@ -47,6 +50,11 @@ void table::Update(int ms)
 	//check for collisions for each ball
 	for(int i=0;i<NUM_BALLS;i++) 
 	{
+		for (int j = 0; j<NUM_POCKETS; j++)
+		{
+			balls[i].DoPocketCollision(pocket[j]);
+		}
+
 		for(int j=0;j<NUM_CUSHIONS;j++)
 		{
 			balls[i].DoPlaneCollision(cushions[j]);

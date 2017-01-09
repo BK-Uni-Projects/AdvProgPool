@@ -100,7 +100,8 @@ void RenderScene(void) {
 	// Draw pockets
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, BLUE);
 	for (int i = 0; i < NUM_POCKETS; i++) {
-		drawCircle(gTable.pocket[i].position.x, 0.0f,  gTable.pocket[i].position.y, 0.1, 32);
+		drawCircle(gTable.pocket[i].position(0), 0.0f, gTable.pocket[i].position(1), gTable.pocket[i].drawRadius, 32);
+		drawCircle(gTable.pocket[i].position(0), 0.0f, gTable.pocket[i].position(1), gTable.pocket[i].colRadius, 32);
 	}
 
 	for(int i=0;i<gTable.parts.num;i++)
