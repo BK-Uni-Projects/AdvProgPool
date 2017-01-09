@@ -21,6 +21,16 @@ bool ball::isCueball() const
 	return false;
 }
 
+bool ball::isBlack() const
+{
+	if (index == 9)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void ball::Reset(void)
 {
 	//set velocity to zero

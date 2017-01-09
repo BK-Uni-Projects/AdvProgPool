@@ -27,13 +27,15 @@ public:
 	float	radius;
 	float	mass;
 	int		index;
+	bool	inPlay;
 
-	ball() : position(0.0), velocity(0.0), radius(BALL_RADIUS), mass(BALL_MASS) {
-		index = ballIndexCnt++; Reset();
+	ball() : position(0.0), velocity(0.0), radius(BALL_RADIUS), mass(BALL_MASS), inPlay(true) {
+		index = ballIndexCnt++; 
+		Reset();
 	}
 
 	bool isCueball() const;
-
+	bool isBlack() const;
 	// mechanics
 	void Reset(void);
 	void ApplyImpulse(vec2 imp);
