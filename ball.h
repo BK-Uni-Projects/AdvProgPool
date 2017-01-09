@@ -44,7 +44,7 @@ public:
 
 	// ball collisions
 	void DoBallCollision(ball &b);
-//	bool HasHitBall(const ball &b) const;
+	bool HasHitBall(const ball &b) const;
 	void HitBall(ball &b);
 
 	// pocket collisions

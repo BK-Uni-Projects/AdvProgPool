@@ -70,27 +70,21 @@ void ball::Update(int ms)
 
 /**	Ball collision methods*/
 void ball::DoBallCollision(ball &b) {
-	bool hashitball = false;
+	if (HasHitBall(b)) HitBall(b);
+}
+
+bool ball::HasHitBall(const ball &b) const {
 	vec2 relPosn = position - b.position;
 	float dist = float(relPosn.Magnitude());
 	vec2 relPosnNorm = relPosn.Normalised();
 	vec2 relVelocity = velocity - b.velocity;
 
 	// collision tests
-	if (relVelocity.Dot(relPosnNorm) >= 0.0)		//if moving apart, cannot have hit	
-	{
-		hashitball = false;
-	}
+	if (relVelocity.Dot(relPosnNorm) >= 0.0) return false;			//if moving apart, cannot have hit	
 
-	if (dist > (radius + b.radius))					//if distnce is more than sum of radii, have not hit
-	{
-		hashitball = false;
-	}
+	if (dist > (radius + b.radius)) return false;					//if distnce is more than sum of radii, have not hit
 
-	if (hashitball==true)
-	{
-		HitBall(b);
-	}
+	return true;
 		
 }
 
@@ -120,14 +114,18 @@ void ball::HitBall(ball &b)
 
 
 	//make some particles
-	int n = (rand() % 5) + 5;
-	vec3 pos(position(0), radius / 2.0, position(1));
-	vec3 oset(relDir(0), 0.0, relDir(1));
-	pos += (oset*radius);
-	for (int i = 0; i < n; i++)
+	if (index==0)
 	{
-		gTable.parts.AddParticle(pos);
+		int n = (rand() % 5) + 5;
+		vec3 pos(position(0), radius / 2.0, position(1));
+		vec3 oset(relDir(0), 0.0, relDir(1));
+		pos += (oset*radius);
+		for (int i = 0; i < n; i++)
+		{
+			gTable.parts.AddParticle(pos);
+		}
 	}
+
 }
 
 /** Cushion Collision methods */
