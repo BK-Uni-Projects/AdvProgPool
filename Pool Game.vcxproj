@@ -96,6 +96,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="particleset.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="pocket.cpp" />
     <ClCompile Include="table.cpp" />
   </ItemGroup>
@@ -107,6 +108,7 @@
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="particle.h" />
     <ClInclude Include="particleset.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="pocket.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="vecmath.h" />
