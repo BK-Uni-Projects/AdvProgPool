@@ -16,7 +16,7 @@ float gCueBallFactor = 8.0;
 bool gDoCue = true;
 
 //camera
-vec3 gCamPos(0.0, 0.7, 2.1);
+vec3 gCamPos(0.0, 4, 0.001);
 vec3 gCamLookAt(0.0, 0.0, 0.0);
 
 bool gCamRotate = true;

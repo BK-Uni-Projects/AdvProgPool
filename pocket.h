@@ -1,6 +1,8 @@
+/*-----------------------------------------------------------
+pocket class
+-----------------------------------------------------------*/
 #pragma once
 #include "vecmath.h"
-#include "glm/detail/type_vec2.hpp"
 
 class pocket
 {
