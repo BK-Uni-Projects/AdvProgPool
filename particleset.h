@@ -4,6 +4,7 @@ particleset class
 #pragma once
 #include "particle.h"
 
+#define MAX_PARTICLES	(200)
 class particleSet 
 {
 public:
@@ -20,7 +21,9 @@ public:
 	{
 		for(int i=0;i<MAX_PARTICLES;i++)
 		{
-			if(particles[i]) delete particles[i];
+			if (particles[i] == nullptr) {
+				delete particles[i];
+			}
 		}
 	}
 
