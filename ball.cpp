@@ -123,8 +123,8 @@ void ball::HitBall(ball &b)
 	b.velocity = parallelV2 + (relDir*perpVNew2);
 
 
-	//make some particles
-	if (index==0)
+	//Particles for the cueball only.
+	if (isCueball())
 	{
 		int n = (rand() % 5) + 5;
 		vec3 pos(position(0), radius / 2.0, position(1));
