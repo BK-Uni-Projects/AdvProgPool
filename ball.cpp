@@ -48,7 +48,7 @@ void ball::Reset(void){
 		rowIndex -= row;
 		row++;
 	}
-	position(1) =  -(rowSep * (row-1));
+	position(1) =  -(rowSep * (row-1))-RACK_OFFSET;
 	position(0) = (((row-1)*sep)/2.0f) - (sep*(row-rowIndex));
 }
 
@@ -75,7 +75,7 @@ void ball::Update(int ms){
 	//apply friction
 	ApplyFrictionForce(ms);
 	//integrate position
-	position += ((velocity * ms)/1000.0f);
+	position += ((velocity * ms)/(500));
 	//set small velocities to zero
 	if(velocity.Magnitude()<SMALL_VELOCITY) velocity = 0.0;
 }

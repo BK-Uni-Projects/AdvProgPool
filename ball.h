@@ -9,13 +9,18 @@
 /*-----------------------------------------------------------
 Macros
 -----------------------------------------------------------*/
+// Physics stuff
 const float gCoeffRestitution = 0.5f;
 const float gCoeffFriction = 0.03f;
 const float gGravityAccn = 9.8f;
 
+// Ball data
 const float BALL_RADIUS = 0.05f;
 const float BALL_MASS = 0.1f;
-const float SMALL_VELOCITY = 0.05f;
+const float SMALL_VELOCITY = 0.1f;
+
+//Rack position adjustment
+const float RACK_OFFSET = 0.5f;
 
 class ball{
 public:
