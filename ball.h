@@ -36,6 +36,7 @@ public:
 
 	bool isCueball() const;
 	bool isBlack() const;
+	void setinPlay(bool set);
 	// mechanics
 	void Reset(void);
 	void ApplyImpulse(vec2 imp);
@@ -53,8 +54,8 @@ public:
 	void HitBall(ball &b);
 
 	// pocket collisions
-	void DoPocketCollision(pocket& p) const;
+	void DoPocketCollision(pocket& p) ;
 	bool HasHitPocket(const pocket& pocket) const;
-	void HitPocket(pocket& pocket) const;
+	void HitPocket(pocket& pocket);
 };
 

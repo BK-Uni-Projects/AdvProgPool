@@ -11,45 +11,40 @@ extern table gTable;
 
 int ball::ballIndexCnt = 0;
 
-bool ball::isCueball() const
-{
-	if (index==0)
-	{
+bool ball::isCueball() const{
+	if (index==0)	{
 		return true;
 	}
-
 	return false;
 }
 
-bool ball::isBlack() const
-{
-	if (index == 9)
-	{
+bool ball::isBlack() const{
+	if (index == 9)	{
 		return true;
 	}
-
 	return false;
 }
 
-void ball::Reset(void)
-{
+void ball::setinPlay(bool set) {
+	inPlay = set;
+}
+
+void ball::Reset(void){
 	//set velocity to zero
 	velocity = 0.0;
 
 	//work out rack position
-	if(index==0)
-	{
-		position(1) = 0.5;
+	if(isCueball())	{
+		position(1) = 0.8;
 		position(0) = 0.0;
 		return;
 	}
 	
-	static const float sep = (BALL_RADIUS*2.0f);
-	static const float rowSep = (BALL_RADIUS*1.5f);
+	static const float sep = (BALL_RADIUS*2.1f);
+	static const float rowSep = (BALL_RADIUS*1.6f);
 	int row = 1;
 	int rowIndex = index;
-	while(rowIndex > row)
-	{
+	while(rowIndex > row)	{
 		rowIndex -= row;
 		row++;
 	}
@@ -57,13 +52,11 @@ void ball::Reset(void)
 	position(0) = (((row-1)*sep)/2.0f) - (sep*(row-rowIndex));
 }
 
-void ball::ApplyImpulse(vec2 imp)
-{
+void ball::ApplyImpulse(vec2 imp){
 	velocity = imp;
 }
 
-void ball::ApplyFrictionForce(int ms)
-{
+void ball::ApplyFrictionForce(int ms){
 	if(velocity.Magnitude()<=0.0) return;
 
 	//accelaration is opposite to direction of motion
@@ -78,8 +71,7 @@ void ball::ApplyFrictionForce(int ms)
 	else velocity += velocityChange;
 }
 
-void ball::Update(int ms)
-{
+void ball::Update(int ms){
 	//apply friction
 	ApplyFrictionForce(ms);
 	//integrate position
@@ -108,8 +100,7 @@ bool ball::HasHitBall(const ball &b) const {
 		
 }
 
-void ball::HitBall(ball &b)
-{
+void ball::HitBall(ball &b){
 	//find direction from other ball to this ball
 	vec2 relDir = (position - b.position).Normalised();
 
@@ -134,14 +125,12 @@ void ball::HitBall(ball &b)
 
 
 	//Particles for the cueball only.
-	if (isCueball())
-	{
+	if (isCueball())	{
 		int n = (rand() % 5) + 5;
 		vec3 pos(position(0), radius / 2.0, position(1));
 		vec3 oset(relDir(0), 0.0, relDir(1));
 		pos += (oset*radius);
-		for (int i = 0; i < n; i++)
-		{
+		for (int i = 0; i < n; i++)		{
 			gTable.parts.AddParticle(pos);
 		}
 	}
@@ -172,14 +161,12 @@ void ball::HitCushion(const cushion &c) {
 }
 
 /** Pocket Collision routines*/
-void ball::DoPocketCollision(pocket &p) const
-{
+void ball::DoPocketCollision(pocket &p) {
 	if (HasHitPocket(p)) HitPocket(p);
 }
 
 
-bool ball::HasHitPocket(const pocket &pocket) const 
-{
+bool ball::HasHitPocket(const pocket &pocket) const {
 	vec2 relPosn = position - pocket.position;
 	float dist = (float)relPosn.Magnitude();
 	vec2 relPosnNorm = relPosn.Normalised();
@@ -190,14 +177,19 @@ bool ball::HasHitPocket(const pocket &pocket) const
 	return true;	// TODO yeah... make it work
 }
 
-void ball::HitPocket(pocket &pocket) const
-{
-	//make some particles
-	int n = (rand() % 5) + 5;
-	vec3 pos(pocket.position(0), 1.0f, pocket.position(1));
+void ball::HitPocket(pocket &pocket){
+	bool doParticles = false;
 
-	for (int i = 0; i<n; i++) {
-		gTable.parts.AddParticle(pos);
 	}
 
+	// only do particles if flagged to do so
+	if (doParticles) {		
+		//make some particles
+		int n = (rand() % 5) * 2 + 5;
+		vec3 pos(pocket.position(0), 0, pocket.position(1));
+
+		for (int i = 0; i < n; i++) {
+			gTable.parts.AddParticle(pos);
+		}
+	}
 }
