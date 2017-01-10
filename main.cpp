@@ -8,17 +8,20 @@ Main Program - Pool Game V3
 #include "freeglut\include\GL\freeglut.h"
 #include "colours.h"
 #include "table.h"
+#include "ruleset.h"
 #include "DrawPrimatives.h"
 #include "keyboard.h"
 #include "camera.h"
+
 
 /*-----------------------------------------------------------
 Macros
 -----------------------------------------------------------*/
 const int SIM_UPDATE_MS = 10;
 
-//Create Table
+//Create Global Objects
 table gTable;
+ruleset gGame;
 
 void RenderScene(void);
 void ChangeWindowSize(int width, int height);

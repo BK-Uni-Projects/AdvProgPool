@@ -6,8 +6,10 @@
 #include "ball.h"
 #include "table.h"
 #include "pocket.h"
+#include "ruleset.h"
 
 extern table gTable;
+extern ruleset gGame;
 
 int ball::ballIndexCnt = 0;
 int ball::bar_count = 0;

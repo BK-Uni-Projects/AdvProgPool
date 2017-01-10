@@ -98,6 +98,7 @@
     <ClCompile Include="particleset.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="pocket.cpp" />
+    <ClCompile Include="ruleset.cpp" />
     <ClCompile Include="table.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +111,7 @@
     <ClInclude Include="particleset.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="pocket.h" />
+    <ClInclude Include="ruleset.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="vecmath.h" />
   </ItemGroup>
