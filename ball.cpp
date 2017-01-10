@@ -10,6 +10,7 @@
 extern table gTable;
 
 int ball::ballIndexCnt = 0;
+int ball::bar_count = 0;
 
 bool ball::isCueball() const{
 	if (index==0)	{
@@ -28,6 +29,18 @@ bool ball::isBlack() const{
 void ball::setinPlay(bool set) {
 	inPlay = set;
 }
+
+void ball::Sidebar(void) {
+	bar_count++;
+
+	//set velocity to zero
+	velocity = 0.0;
+
+	//work out rack position
+	position(1) = TABLE_Z -(bar_count*(BALL_RADIUS*2.1));
+	position(0) = TABLE_X + 0.5;
+}
+
 
 void ball::Reset(void){
 	//set velocity to zero

@@ -25,7 +25,7 @@ const float RACK_OFFSET = 0.5f;
 class ball{
 public:
 	static int ballIndexCnt;
-
+	static int bar_count;
 	vec2	position;
 	vec2	velocity;
 	float	radius;
@@ -41,6 +41,8 @@ public:
 	bool isCueball() const;
 	bool isBlack() const;
 	void setinPlay(bool set);
+	void Sidebar(void);
+
 	// mechanics
 	void Reset(void);
 	void ApplyImpulse(vec2 imp);
