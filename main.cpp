@@ -28,6 +28,7 @@ void UpdateScene(int ms);
 int main(int argc, char* argv[]){
 	gTable.SetupCushions();
 	gTable.SetupPockets();
+	gTable.SetupPlayers();
 
 	glutInit(&argc, ((char **)argv));
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE| GLUT_RGBA);
@@ -40,13 +41,14 @@ int main(int argc, char* argv[]){
 	glutTimerFunc(SIM_UPDATE_MS, UpdateScene, SIM_UPDATE_MS);
 	glutReshapeFunc(ChangeWindowSize);
 	glutIdleFunc(RenderScene);
+	glEnable(GL_DEPTH_TEST);
 	
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(KeyboardFunc);
 	glutKeyboardUpFunc(KeyboardUpFunc);
 	glutSpecialFunc(SpecKeyboardFunc);
 	glutSpecialUpFunc(SpecKeyboardUpFunc);
-	glEnable(GL_DEPTH_TEST);
+
 	glutMainLoop();
 
 }

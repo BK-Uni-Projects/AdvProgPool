@@ -17,8 +17,7 @@ const float BALL_RADIUS = 0.05f;
 const float BALL_MASS = 0.1f;
 const float SMALL_VELOCITY = 0.05f;
 
-class ball
-{
+class ball{
 public:
 	static int ballIndexCnt;
 

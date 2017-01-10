@@ -3,7 +3,6 @@ player class
 -----------------------------------------------------------*/
 #pragma once
 #include <string>
-#include <iostream>
 
 class player
 {
@@ -12,9 +11,11 @@ public:
 	std::string name;
 	int currentScore;
 	bool myturn;
+	int potted;
 
 
 	player(int id, std::string n);
 	virtual ~player();
+	void setTurn(const int t);
 };
 

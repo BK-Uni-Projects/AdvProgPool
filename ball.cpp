@@ -180,7 +180,20 @@ bool ball::HasHitPocket(const pocket &pocket) const {
 void ball::HitPocket(pocket &pocket){
 	bool doParticles = false;
 
+	// process cueball entering pocket
+	if (isCueball()) {
+		// declare foul
+		// change turn
+		// place cueball at start point
 	}
+
+	// Process Blackball entering pocket
+	if (isBlack()) {
+		// check if player is on black
+		// declare winner
+	}
+	
+	setinPlay(false);
 
 	// only do particles if flagged to do so
 	if (doParticles) {		

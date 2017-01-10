@@ -45,6 +45,11 @@ void table::SetupPockets()
 	pocket[5].position(0) = -TABLE_X ;	pocket[5].position(1) = 0;					// center left
 }
 
+void table::SetupPlayers() {
+	players[0] = new player(0, "Jack");
+	players[1] = new player(1, "John");
+}
+
 void table::Update(int ms)
 {
 	//check for collisions for each ball
@@ -86,4 +91,11 @@ bool table::AnyBallsMoving(void) const
 		if(balls[i].velocity(1)!=0.0) return true;
 	}
 	return false;
+}
+
+table::~table(){
+	// delete players
+	for (int i=0; i<NUM_PLAYERS; i++) {
+		delete players[i];
+	}
 }
