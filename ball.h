@@ -23,15 +23,19 @@ const float SMALL_VELOCITY = 0.1f;
 const float RACK_OFFSET = 0.5f;
 
 class ball{
-public:
+private:
 	static int ballIndexCnt;
 	static int bar_count;
-	vec2	position;
-	vec2	velocity;
-	float	radius;
+
 	float	mass;
 	int		index;
 	bool	inPlay;
+
+public:
+	vec2	position;
+	vec2	velocity;
+	float	radius;
+
 
 	ball() : position(0.0), velocity(0.0), radius(BALL_RADIUS), mass(BALL_MASS), inPlay(true) {
 		index = ballIndexCnt++; 
