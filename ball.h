@@ -23,7 +23,7 @@ const float SMALL_VELOCITY = 0.1f;
 const float RACK_OFFSET = 0.5f;
 
 class ball{
-private:
+public:
 	static int ballIndexCnt;
 	static int bar_count;
 
@@ -32,7 +32,7 @@ private:
 	bool inPlay;
 
 
-public:
+
 	vec2 position;
 	vec2 velocity;
 	float radius;
@@ -49,7 +49,7 @@ public:
 	bool isBlack() const;
 	void setinPlay(bool set);
 	void Sidebar(void);
-
+	void SidebarCueball();
 	// mechanics
 	void Reset(void);
 	void ApplyImpulse(vec2 imp);

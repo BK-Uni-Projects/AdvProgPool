@@ -77,11 +77,16 @@ void ruleset::swapPlayer() {
 
 // Main game controlling logic
 int ruleset::ProcessGame() {
-	//std::cout << "Entering ProcessGame()" << std::endl;
+
 
 	if (gTable.CueballStruck) {
 		swapPlayer();
+		if (gTable.balls[0].inPlay==false) {
+			gTable.balls[0].Reset();
+		}
+			
 	}
+	
 	return 0;
 }
 

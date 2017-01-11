@@ -44,9 +44,22 @@ void ball::Sidebar(void) {
 	position(0) = TABLE_X + 0.5;
 }
 
+void ball::SidebarCueball(void) {
+	if (inPlay) {
+		setinPlay(false);
+
+		//set velocity to zero
+		velocity = 0.0;
+
+		//Set side bar ball position
+		position(1) = TABLE_Z;
+		position(0) = TABLE_X + 0.8;
+	}
+
+}
+
 
 void ball::Reset(void){
-
 	// Arrange balls into sets
 	if (index > 0 && index % 2 == 1) {
 		set = 1;
@@ -63,11 +76,13 @@ void ball::Reset(void){
 
 	//work out rack position
 	if(isCueball())	{
+		setinPlay(true);
 		position(1) = 0.8;
 		position(0) = 0.0;
 		return;
 	}
 	
+	// Build Triangle from balls voodoo
 	static const float sep = (BALL_RADIUS*2.1f);
 	static const float rowSep = (BALL_RADIUS*1.6f);
 	int row = 1;
@@ -210,7 +225,9 @@ void ball::HitPocket(pocket &pocket){
 		// declare foul
 		// change turn
 		// place cueball at start point
-		Reset();
+		//inPlay = false;
+		SidebarCueball();
+		//Reset();
 		return;
 	}
 
