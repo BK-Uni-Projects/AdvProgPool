@@ -29,16 +29,20 @@ void InitLights(void);
 void UpdateScene(int ms);
 
 int main(int argc, char* argv[]){
+
+	// Setup game and table
 	gTable.SetupCushions();
 	gTable.SetupPockets();
 	gTable.SetupPlayers();
 
+	// Set up GLUT Window
 	glutInit(&argc, ((char **)argv));
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE| GLUT_RGBA);
 	glutInitWindowPosition(0,0);
 	glutInitWindowSize(1000,700);
-	//glutFullScreen();
 	glutCreateWindow("Marc Chapman 054888139 - Assessment 1: Pool Game");
+
+	// Set up scene and render
 	InitLights();
 	glutDisplayFunc(RenderScene);
 	glutTimerFunc(SIM_UPDATE_MS, UpdateScene, SIM_UPDATE_MS);
@@ -46,12 +50,14 @@ int main(int argc, char* argv[]){
 	glutIdleFunc(RenderScene);
 	glEnable(GL_DEPTH_TEST);
 	
+	// set up keyboard monitoring
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardFunc(KeyboardFunc);
 	glutKeyboardUpFunc(KeyboardUpFunc);
 	glutSpecialFunc(SpecKeyboardFunc);
 	glutSpecialUpFunc(SpecKeyboardUpFunc);
 
+	// What it says on the tin
 	glutMainLoop();
 
 }
@@ -65,8 +71,7 @@ void RenderScene(void) {
 	gluLookAt(gCamPos(0),gCamPos(1),gCamPos(2),gCamLookAt(0),gCamLookAt(1),gCamLookAt(2),0.0f,1.0f,0.0f);
 
 	//draw the ball
-	for(int i=0;i<NUM_BALLS;i++)
-	{
+	for(int i=0;i<NUM_BALLS;i++)	{
 		glPushMatrix();
 			glTranslatef(gTable.balls[i].position(0), (BALL_RADIUS / 2.0f), gTable.balls[i].position(1));
 
@@ -86,12 +91,10 @@ void RenderScene(void) {
 			glutSolidSphere(gTable.balls[i].radius, 32, 32);
 
 		glPopMatrix();		
-	}
-	
+	}	
 
 	//draw the table
-	for(int i=0;i<NUM_CUSHIONS;i++)
-	{	
+	for(int i=0;i<NUM_CUSHIONS;i++)	{	
 		glBegin(GL_LINE_LOOP);
 		glVertex3f (gTable.cushions[i].vertices[0](0), 0.0, gTable.cushions[i].vertices[0](1));
 		glVertex3f (gTable.cushions[i].vertices[0](0), 0.1, gTable.cushions[i].vertices[0](1));
@@ -107,8 +110,7 @@ void RenderScene(void) {
 		drawCircle(gTable.pocket[i].position(0), 0.0f, gTable.pocket[i].position(1), gTable.pocket[i].colRadius, 32);
 	}
 
-	for(int i=0;i<gTable.parts.num;i++)
-	{		
+	for(int i=0;i<gTable.parts.num;i++)	{		
 		//GLfloat RANDOMCOLOUR[] = { RandColourVal(), RandColourVal(), RandColourVal() };
 		glPushMatrix();
 		glTranslatef(gTable.parts.particles[i]->position(0),gTable.parts.particles[i]->position(1),gTable.parts.particles[i]->position(2));
@@ -119,8 +121,7 @@ void RenderScene(void) {
 
 
 	//draw the cue
-	if(gDoCue)
-	{
+	if(gDoCue)	{
 		glBegin(GL_LINES);
 		float cuex = sin(gCueAngle) * gCuePower;
 		float cuez = cos(gCueAngle) * gCuePower;
@@ -157,8 +158,7 @@ void ChangeWindowSize(int width, int height) {
 	gluLookAt(gCamPos(0),gCamPos(1),gCamPos(2),gCamLookAt(0),gCamLookAt(1),gCamLookAt(2),0.0f,1.0f,0.0f);
 }
 
-void InitLights(void)
-{
+void InitLights(void){
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat mat_shininess[] = { 80.0 };
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -166,8 +166,7 @@ void InitLights(void)
 	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
 
 	glShadeModel (GL_SMOOTH);
-
-
+	
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
 	GLfloat light_ambient[] = { .5, .5, .5, 1 };
@@ -179,13 +178,11 @@ void InitLights(void)
 	glEnable(GL_DEPTH_TEST);
 }
 
-void UpdateScene(int ms) 
-{
+void UpdateScene(int ms) {
 	if(gTable.AnyBallsMoving()==false) gDoCue = true;
 	else gDoCue = false;
 
-	if(gDoCue)
-	{
+	if(gDoCue)	{
 		if(gCueControl[0]) gCueAngle -= ((gCueAngleSpeed * ms)/1000);
 		if(gCueControl[1]) gCueAngle += ((gCueAngleSpeed * ms)/1000);
 		if (gCueAngle <0.0) gCueAngle += TWO_PI;
