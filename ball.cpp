@@ -38,7 +38,7 @@ void ball::Sidebar(void) {
 	//set velocity to zero
 	velocity = 0.0;
 
-	//work out rack position
+	//Set side bar ball position
 	position(1) = TABLE_Z -(bar_count*(BALL_RADIUS*2.1));
 	position(0) = TABLE_X + 0.5;
 }
@@ -200,6 +200,8 @@ void ball::HitPocket(pocket &pocket){
 		// declare foul
 		// change turn
 		// place cueball at start point
+		Reset();
+		return;
 	}
 
 	// Process Blackball entering pocket
@@ -207,8 +209,7 @@ void ball::HitPocket(pocket &pocket){
 		// check if player is on black
 		// declare winner
 	}
-	
-	setinPlay(false);
+	Sidebar();
 
 	// only do particles if flagged to do so
 	if (doParticles) {		
