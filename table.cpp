@@ -80,6 +80,7 @@ bool table::AnyBallsMoving(void) const{
 		if(balls[i].velocity(1)!=0.0) return true;
 	}
 
+	gGame.ProcessGame();
 
 	return false;
 }

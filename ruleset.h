@@ -30,6 +30,6 @@ public:
 	bool isFreeTable();
 	void swapPlayer();
 
-	int checkrules();
+	int ProcessGame();
 };
 

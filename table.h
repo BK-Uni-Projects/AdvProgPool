@@ -31,6 +31,8 @@ public:
 	particleSet parts;
 	std::array<player*, NUM_PLAYERS> players;
 
+	bool CueballStruck = false;
+
 	void SetupCushions(void);
 	void SetupPockets(void);
 	void SetupPlayers();

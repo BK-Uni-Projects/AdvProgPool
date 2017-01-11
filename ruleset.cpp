@@ -1,11 +1,12 @@
 /*-----------------------------------------------------------
 ruleset class members
 -----------------------------------------------------------*/
+#include <iostream>
 #include "ruleset.h"
 #include "table.h"
-#include <iostream>
 
 extern table gTable;
+
 // Default Consructor
 ruleset::ruleset()
 {
@@ -71,9 +72,16 @@ void ruleset::swapPlayer() {
 		currentPlayer = 0;
 	}
 	std::cout << "Current player is " << gTable.players[currentPlayer]->name << "!" << std::endl;
+	gTable.CueballStruck = false;
 }
 
+// Main game controlling logic
+int ruleset::ProcessGame() {
+	//std::cout << "Entering ProcessGame()" << std::endl;
 
-int ruleset::checkrules(){
+	if (gTable.CueballStruck) {
+		swapPlayer();
+	}
 	return 0;
 }
+
