@@ -96,7 +96,9 @@ void ball::Update(int ms){
 	if(velocity.Magnitude()<SMALL_VELOCITY) velocity = 0.0;
 }
 
-/**	Ball collision methods*/
+/**	
+all collision methods
+*/
 void ball::DoBallCollision(ball &b) {
 	if (HasHitBall(b)) HitBall(b);
 }
@@ -117,6 +119,8 @@ bool ball::HasHitBall(const ball &b) const {
 }
 
 void ball::HitBall(ball &b){
+	
+	/** Game Physics section*/
 	//find direction from other ball to this ball
 	vec2 relDir = (position - b.position).Normalised();
 
@@ -143,7 +147,9 @@ void ball::HitBall(ball &b){
 
 }
 
-/** Cushion Collision methods */
+/** 
+Cushion Collision methods 
+*/
 void ball::DoPlaneCollision(const cushion &b) {
 	if (HasHitCushion(b)) HitCushion(b);
 }
@@ -166,11 +172,12 @@ void ball::HitCushion(const cushion &c) {
 	velocity += delta;
 }
 
-/** Pocket Collision routines*/
+/** 
+Pocket Collision methods
+*/
 void ball::DoPocketCollision(pocket &p) {
 	if (HasHitPocket(p)) HitPocket(p);
 }
-
 
 bool ball::HasHitPocket(const pocket &pocket) const {
 	vec2 relPosn = position - pocket.position;

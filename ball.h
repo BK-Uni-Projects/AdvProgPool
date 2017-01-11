@@ -27,14 +27,17 @@ private:
 	static int ballIndexCnt;
 	static int bar_count;
 
-	float	mass;
-	int		index;
-	bool	inPlay;
+	float mass;
+	int index;
+	bool inPlay;
+
 
 public:
-	vec2	position;
-	vec2	velocity;
-	float	radius;
+	vec2 position;
+	vec2 velocity;
+	float radius;
+	bool firstContact;
+	int set;
 
 
 	ball() : position(0.0), velocity(0.0), radius(BALL_RADIUS), mass(BALL_MASS), inPlay(true) {
