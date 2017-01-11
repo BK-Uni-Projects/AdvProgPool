@@ -2,7 +2,10 @@
 ruleset class members
 -----------------------------------------------------------*/
 #include "ruleset.h"
+#include "table.h"
+#include <iostream>
 
+extern table gTable;
 // Default Consructor
 ruleset::ruleset()
 {
@@ -60,7 +63,15 @@ bool ruleset::isFreeTable() {
 	return false;
 }
 
-
+void ruleset::swapPlayer() {
+	// Swap current player
+	if(currentPlayer==0) {
+		currentPlayer = 1;
+	}else {
+		currentPlayer = 0;
+	}
+	std::cout << "Current player is " << gTable.players[currentPlayer]->name << "!" << std::endl;
+}
 
 
 int ruleset::checkrules(){

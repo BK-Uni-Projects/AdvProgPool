@@ -17,6 +17,5 @@ public:
 
 	player(int id, std::string n);
 	virtual ~player();
-	void setTurn(const int t);
 };
 

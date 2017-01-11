@@ -28,6 +28,7 @@ public:
 	bool isFreeBall();
 	bool isPlaceball();
 	bool isFreeTable();
+	void swapPlayer();
 
 	int checkrules();
 };
