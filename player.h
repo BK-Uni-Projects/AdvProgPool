@@ -12,6 +12,7 @@ public:
 	int currentScore;
 	bool myturn;
 	int potted;
+	int set;
 
 
 	player(int id, std::string n);
