@@ -9,7 +9,9 @@ table class
 #include "particleset.h"
 #include "pocket.h"
 #include "player.h"
+#include "ruleset.h"
 
+extern ruleset gGame;
 
 /*-----------------------------------------------------------
 Macros
