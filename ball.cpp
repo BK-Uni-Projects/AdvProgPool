@@ -139,17 +139,7 @@ void ball::HitBall(ball &b){
 	velocity = parallelV + (relDir*perpVNew);
 	b.velocity = parallelV2 + (relDir*perpVNew2);
 
-
-	//Particles for the cueball only.
-	if (isCueball())	{
-		int n = (rand() % 5) + 5;
-		vec3 pos(position(0), radius / 2.0, position(1));
-		vec3 oset(relDir(0), 0.0, relDir(1));
-		pos += (oset*radius);
-		for (int i = 0; i < n; i++)		{
-			gTable.parts.AddParticle(pos);
-		}
-	}
+	
 
 }
 
