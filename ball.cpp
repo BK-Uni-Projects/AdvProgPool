@@ -46,6 +46,18 @@ void ball::Sidebar(void) {
 
 
 void ball::Reset(void){
+
+	// Arrange balls into sets
+	if (index > 0 && index % 2 == 1) {
+		set = 1;
+	}
+	if (index > 0 && index % 2 == 0) {
+		set = 2;
+	}
+	if(isBlack()) {
+		set = 3;
+	}
+
 	//set velocity to zero
 	velocity = 0.0;
 
