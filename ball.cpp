@@ -34,6 +34,7 @@ void ball::setinPlay(bool set) {
 
 void ball::Sidebar(void) {
 	bar_count++;
+	setinPlay(false);
 
 	//set velocity to zero
 	velocity = 0.0;
