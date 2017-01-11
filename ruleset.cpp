@@ -12,6 +12,7 @@ ruleset::ruleset()
 	freeball = true;
 	placeball = false;
 	freetable = false;
+	currentPlayer = 0;
 }
 
 // Main Constructor
@@ -23,6 +24,7 @@ ruleset::ruleset(int id, std::string rulename, bool two, bool free, bool place)
 	freeball = free;
 	placeball = place;
 	freetable = false;
+	currentPlayer = 0;
 }
 
 // Destructor

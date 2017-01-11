@@ -15,6 +15,7 @@ private:
 	bool freetable;
 
 public:
+	int currentPlayer;
 	// Constructors
 	ruleset();
 	ruleset(int ID, std::string rulename, bool two, bool free, bool place);
