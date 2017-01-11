@@ -70,21 +70,19 @@ void RenderScene(void) {
 		glPushMatrix();
 			glTranslatef(gTable.balls[i].position(0), (BALL_RADIUS / 2.0f), gTable.balls[i].position(1));
 
-			if (i > 0 && i % 2 == 1) {
-				glMaterialfv(GL_FRONT, GL_DIFFUSE, CRIMSON);
-			}
-			else if (i > 0 && i % 2 == 0) {
-				glMaterialfv(GL_FRONT, GL_DIFFUSE, YELLOW);
-			}
-
-			if (i == 0) {
+			if (gTable.balls[i].set == 0) {
 				glMaterialfv(GL_FRONT, GL_DIFFUSE, WHITE);
 			}
-
-			if (i == 9) {
+			if (gTable.balls[i].set == 1) {
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, CRIMSON);
+			}
+			if (gTable.balls[i].set == 2) {
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, YELLOW);
+			}
+			if (gTable.balls[i].set == 3) {
 				glMaterialfv(GL_FRONT, GL_DIFFUSE, BLACK);
 			}
-
+			
 			glutSolidSphere(gTable.balls[i].radius, 32, 32);
 
 		glPopMatrix();		
