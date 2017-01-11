@@ -50,23 +50,18 @@ void table::SetupPlayers() {
 	players[1] = new player(1, "John");
 }
 
-void table::Update(int ms)
-{
+void table::Update(int ms){
 	//check for collisions for each ball
-	for(int i=0;i<NUM_BALLS;i++) 
-	{
-		for (int j = 0; j<NUM_POCKETS; j++)
-		{
+	for(int i=0;i<NUM_BALLS;i++){
+		for (int j = 0; j<NUM_POCKETS; j++){
 			balls[i].DoPocketCollision(pocket[j]);
 		}
 
-		for(int j=0;j<NUM_CUSHIONS;j++)
-		{
+		for(int j=0;j<NUM_CUSHIONS;j++){
 			balls[i].DoPlaneCollision(cushions[j]);
 		}
 
-		for(int j=(i+1);j<NUM_BALLS;j++) 
-		{
+		for(int j=(i+1);j<NUM_BALLS;j++){
 			balls[i].DoBallCollision(balls[j]);
 		}
 	}
@@ -76,20 +71,16 @@ void table::Update(int ms)
 
 	//update particles
 	parts.update(ms);
-
-	//make some new particles
-	//vec3 pos(0.0,BALL_RADIUS,0.0);
-	//parts.AddParticle(pos);
 }
 
-bool table::AnyBallsMoving(void) const
-{
+bool table::AnyBallsMoving(void) const{
 	//return true if any ball has a non-zero velocity
-	for(int i=0;i<NUM_BALLS;i++) 
-	{
+	for(int i=0;i<NUM_BALLS;i++){
 		if(balls[i].velocity(0)!=0.0) return true;
 		if(balls[i].velocity(1)!=0.0) return true;
 	}
+
+
 	return false;
 }
 
