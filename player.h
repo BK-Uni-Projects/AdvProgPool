@@ -4,14 +4,11 @@ player class
 #pragma once
 #include <string>
 
-class player
-{
+class player{
 public:
 	int ID;
 	std::string name;
 	int currentScore;
-	bool fouled;
-	int potted;
 	int set;
 
 
