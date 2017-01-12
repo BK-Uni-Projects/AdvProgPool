@@ -75,9 +75,12 @@ void ruleset::swapPlayer() {
 	gTable.CueballStruck = false;
 }
 
-// Main game controlling logic
-int ruleset::ProcessGame() {
+void ruleset::CallFoul() {
+	std::cout<< gTable.players[currentPlayer]->name << " caused a foul" << std::endl;	
+}
 
+// Main game controlling logic
+void ruleset::ProcessGame() {
 
 	if (gTable.CueballStruck) {
 		swapPlayer();
@@ -87,6 +90,5 @@ int ruleset::ProcessGame() {
 			
 	}
 	
-	return 0;
 }
 

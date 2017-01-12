@@ -2,11 +2,10 @@
 Ruleset class
 -----------------------------------------------------------*/
 #pragma once
-#include <string>
 
 class ruleset
 {
-private:
+public:
 	int ID;
 	std::string name;
 	bool twoshots;
@@ -14,8 +13,9 @@ private:
 	bool placeball;
 	bool freetable;
 
-public:
+
 	int currentPlayer;
+
 	// Constructors
 	ruleset();
 	ruleset(int ID, std::string rulename, bool two, bool free, bool place);
@@ -28,8 +28,10 @@ public:
 	bool isFreeBall();
 	bool isPlaceball();
 	bool isFreeTable();
-	void swapPlayer();
+	// game management functions
+	void ProcessGame();
 
-	int ProcessGame();
+	void swapPlayer();	
+	void CallFoul(void);
 };
 
