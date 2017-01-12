@@ -230,12 +230,15 @@ void ball::HitPocket(pocket &pocket){
 	}
 
 	// Process Blackball entering pocket with early exit
-	if (isBlack()) {
-		// check if player is on black
-		if (setcount[gTable.players[gGame.currentPlayer]->set]==7) {
-			std::cout << "The winner of This game is " << gTable.players[gGame.currentPlayer]->name << "!" << std::endl;
-		}else {
-			std::cout << gTable.players[gGame.currentPlayer]->name << " potted the black out of turn, he loses!" << std::endl;
+	if (isBlack()) {		
+		if (setcount[gTable.players[gGame.currentPlayer]->set]==7) {	// If player is on the black ball game is won
+			std::cout	<< "The winner of This game is " 
+						<< gTable.players[gGame.currentPlayer]->name 
+						<< "!" << std::endl;
+		}else {															// if not he hands the win to opponent
+			std::cout	<< gTable.players[gGame.currentPlayer]->name 
+						<< " potted the black out of turn, he loses!" 
+						<< std::endl;
 		}
 		Sidebar();		
 		return;
@@ -258,9 +261,12 @@ void ball::HitPocket(pocket &pocket){
 			gTable.players[gGame.currentPlayer]->set = this->set;
 			gTable.players[1]->set = otherset;
 		}
-		std::cout << gTable.players[gGame.currentPlayer]->name << " is now using ball set #" << this->set << std::endl;
-		gTable.players[gGame.currentPlayer]->currentScore++;
-		// Set states
+		std::cout	<< gTable.players[gGame.currentPlayer]->name 
+					<< " is now using ball set #" << this->set << std::endl;
+
+		gTable.players[gGame.currentPlayer]->currentScore++;		// Increment player score
+		
+																	// Set states
 		gGame.switchplay = false;
 		gGame.freetable = false;
 		setcount[this->set]++;
@@ -268,16 +274,16 @@ void ball::HitPocket(pocket &pocket){
 		return;
 	}
 
-	setcount[set]++;
-	Sidebar();
+	setcount[set]++;					// Increment ball set potted count
+	Sidebar();							// Send ball to sidebar
 
 	// Check for valid pot, then allocate score
 	if (gTable.players[gGame.currentPlayer]->set== this->set) {
 		gTable.players[gGame.currentPlayer]->currentScore++;
-		gGame.switchplay = false;
+		gGame.switchplay = false;	// do NOT switch players
 	}else {
 		gGame.CallFoul();			// declare foul
-		gGame.switchplay = true;
+		gGame.switchplay = true;	// switch players
 	}
 						
 }

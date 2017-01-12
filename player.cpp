@@ -1,7 +1,6 @@
 #include "player.h"
 #include <iostream>
 
-
 player::player(int id, std::string n)
 {
 	name = n;
