@@ -31,14 +31,12 @@ public:
 	int index;
 	bool inPlay;
 
-
-
 	vec2 position;
 	vec2 velocity;
 	float radius;
 	bool firstContact;
 	int set;
-
+	int setcount[2];
 
 	ball() : position(0.0), velocity(0.0), radius(BALL_RADIUS), mass(BALL_MASS), inPlay(true) {
 		index = ballIndexCnt++; 
@@ -49,7 +47,8 @@ public:
 	bool isBlack() const;
 	void setinPlay(bool set);
 	void Sidebar(void);
-	void SidebarCueball();
+	void SidebarCueball(void);
+
 	// mechanics
 	void Reset(void);
 	void ApplyImpulse(vec2 imp);

@@ -7,6 +7,7 @@
 #include "table.h"
 #include "pocket.h"
 #include "ruleset.h"
+#include <iostream>
 
 extern table gTable;
 extern ruleset gGame;
@@ -33,14 +34,16 @@ void ball::setinPlay(bool set) {
 }
 
 void ball::Sidebar(void) {
-	bar_count++;
-	setinPlay(false);
+	bar_count++;				// used to increment ball position in sidebar
 
-	//set velocity to zero
-	velocity = 0.0;
+	setinPlay(false);			// set ball as managed off the table
 
-	//Set side bar ball position
-	position(1) = TABLE_Z -(bar_count*(BALL_RADIUS*2.1));
+	velocity = 0.0;				// stop the ball moving
+
+	/*
+	Set side bar ball position
+	*/
+	position(1) = TABLE_Z -(bar_count*(BALL_RADIUS*2.1f));
 	position(0) = TABLE_X + 0.5;
 }
 
@@ -57,7 +60,6 @@ void ball::SidebarCueball(void) {
 	}
 
 }
-
 
 void ball::Reset(void){
 	// Arrange balls into sets
@@ -218,34 +220,52 @@ bool ball::HasHitPocket(const pocket &pocket) const {
 }
 
 void ball::HitPocket(pocket &pocket){
-	bool doParticles = false;
 
-	// process cueball entering pocket
-	if (isCueball()) {
-		// declare foul
-		// change turn
-		// place cueball at start point
-		//inPlay = false;
-		SidebarCueball();
-		//Reset();
+	// process cueball entering pocket with early exit
+	if (isCueball()) {		
+		SidebarCueball();	// place cueball at sidebar
+		gGame.CallFoul();	// declare foul		
+							// change turn
 		return;
 	}
 
-	// Process Blackball entering pocket
+	// Process Blackball entering pocket with early exit
 	if (isBlack()) {
 		// check if player is on black
-		// declare winner
-	}
-	Sidebar();
-
-	// only do particles if flagged to do so
-	if (doParticles) {		
-		//make some particles
-		int n = (rand() % 5) * 2 + 5;
-		vec3 pos(pocket.position(0), 0, pocket.position(1));
-
-		for (int i = 0; i < n; i++) {
-			gTable.parts.AddParticle(pos);
+		if (setcount[gTable.players[gGame.currentPlayer]->set]==7) {
+			std::cout << "The winner of This game is " << gTable.players[gGame.currentPlayer]->name << "!" << std::endl;
+		}else {
+			std::cout << gTable.players[gGame.currentPlayer]->name << " potted the black out of turn, he loses!" << std::endl;
 		}
+		Sidebar();
+		
+		return;
 	}
+
+
+	if(gGame.freetable==true) {
+		int otherset;
+		if (set==1) {
+			otherset = 2;
+		}else {
+			otherset = 1;
+		}
+
+		// allocate ball sets to players
+		if(gGame.currentPlayer==1) {
+			gTable.players[gGame.currentPlayer]->set = set;
+			gTable.players[0]->set = otherset;
+		}else {
+			gTable.players[gGame.currentPlayer]->set = set;
+			gTable.players[1]->set = otherset;
+		}
+		std::cout << gTable.players[gGame.currentPlayer]->name << "is now using " << set;
+		gGame.freetable = false;
+	}
+
+	setcount[set]++;			// used to count how many set balls are potted
+	Sidebar();					// Add coloured ball to sidebar
+
 }
+
+
