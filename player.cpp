@@ -7,7 +7,7 @@ player::player(int id, std::string n)
 	name = n;
 	ID = id;
 	currentScore = 0;
-	myturn = false;
+	fouled = false;
 	potted = 0;
 	set = 0;
 

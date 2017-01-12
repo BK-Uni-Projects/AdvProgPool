@@ -10,7 +10,7 @@ public:
 	int ID;
 	std::string name;
 	int currentScore;
-	bool myturn;
+	bool fouled;
 	int potted;
 	int set;
 
