@@ -25,11 +25,6 @@ pocket::pocket(vec2 pos, float drawRad, float colRad)
 	colRadius = colRad;
 }
 
-void pocket::setPosition(vec2 pos)
-{
-	position = pos;
-}
-
 // Destructor
 pocket::~pocket()
 {

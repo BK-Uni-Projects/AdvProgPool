@@ -15,7 +15,6 @@ public:
 
 	pocket(vec2 pos);
 	pocket(vec2 pos, float drawRad, float colRad);
-	void setPosition(vec2 pos);
 
 };
 
