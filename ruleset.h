@@ -6,20 +6,22 @@ Ruleset class
 class ruleset
 {
 public:
+	// Game rules
 	int ID;
 	std::string name;
 	bool twoshots;
 	bool freeball;
 	bool placeball;
-	bool freetable;
-
-
-	int currentPlayer;
+	
+	// Game state
+	bool freetable;			// Initial table state
+	int currentPlayer;		// Player at table
+	bool switchplay;		// change players
 
 	// Constructors
 	ruleset();
-	ruleset(int ID, std::string rulename, bool two, bool free, bool place);
-
+	//ruleset(int ID, std::string rulename, bool two, bool free, bool place);
+	void reset();
 	// Destructor
 	~ruleset();
 

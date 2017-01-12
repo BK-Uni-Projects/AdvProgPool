@@ -64,13 +64,13 @@ void ball::SidebarCueball(void) {
 void ball::Reset(void){
 	// Arrange balls into sets
 	if (index > 0 && index % 2 == 1) {
-		set = 1;
+		this->set = 1;
 	}
 	if (index > 0 && index % 2 == 0) {
-		set = 2;
+		this->set = 2;
 	}
 	if(isBlack()) {
-		set = 3;
+		this->set = 3;
 	}
 
 	//set velocity to zero
@@ -223,9 +223,9 @@ void ball::HitPocket(pocket &pocket){
 
 	// process cueball entering pocket with early exit
 	if (isCueball()) {		
-		SidebarCueball();	// place cueball at sidebar
-		gGame.CallFoul();	// declare foul		
-							// change turn
+		SidebarCueball();			// place cueball at sidebar
+		gGame.CallFoul();			// declare foul		
+		gGame.switchplay = true;	// change turn
 		return;
 	}
 
@@ -237,15 +237,14 @@ void ball::HitPocket(pocket &pocket){
 		}else {
 			std::cout << gTable.players[gGame.currentPlayer]->name << " potted the black out of turn, he loses!" << std::endl;
 		}
-		Sidebar();
-		
+		Sidebar();		
 		return;
 	}
 
-
+	// Check for first ball potted
 	if(gGame.freetable==true) {
 		int otherset;
-		if (set==1) {
+		if (this->set ==1) {
 			otherset = 2;
 		}else {
 			otherset = 1;
@@ -253,19 +252,34 @@ void ball::HitPocket(pocket &pocket){
 
 		// allocate ball sets to players
 		if(gGame.currentPlayer==1) {
-			gTable.players[gGame.currentPlayer]->set = set;
+			gTable.players[gGame.currentPlayer]->set = this->set;
 			gTable.players[0]->set = otherset;
 		}else {
-			gTable.players[gGame.currentPlayer]->set = set;
+			gTable.players[gGame.currentPlayer]->set = this->set;
 			gTable.players[1]->set = otherset;
 		}
-		std::cout << gTable.players[gGame.currentPlayer]->name << "is now using " << set;
+		std::cout << gTable.players[gGame.currentPlayer]->name << " is now using ball set #" << this->set << std::endl;
+		gTable.players[gGame.currentPlayer]->currentScore++;
+		// Set states
+		gGame.switchplay = false;
 		gGame.freetable = false;
+		setcount[this->set]++;
+		Sidebar();
+		return;
 	}
 
-	setcount[set]++;			// used to count how many set balls are potted
-	Sidebar();					// Add coloured ball to sidebar
+	setcount[set]++;
+	Sidebar();
 
+	// Check for valid pot, then allocate score
+	if (gTable.players[gGame.currentPlayer]->set== this->set) {
+		gTable.players[gGame.currentPlayer]->currentScore++;
+		gGame.switchplay = false;
+	}else {
+		gGame.CallFoul();			// declare foul
+		gGame.switchplay = true;
+	}
+						
 }
 
 

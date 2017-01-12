@@ -96,6 +96,7 @@ inline void KeyboardFunc(unsigned char key, int x, int y) {
 			for (int i = 0; i < NUM_BALLS; i++) {
 				gTable.balls[i].Reset();
 			}
+			gGame.reset();
 			break;
 		}
 
