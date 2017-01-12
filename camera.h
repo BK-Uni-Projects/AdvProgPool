@@ -2,7 +2,7 @@
 
 #include "keyboard.h"
 
-void DoCamera(int ms)
+inline void DoCamera(int ms)
 {
 	static const vec3 up(0.0, 1.0, 0.0);
 
