@@ -110,16 +110,6 @@ void RenderScene(void) {
 		drawCircle(gTable.pocket[i].position(0), 0.0f, gTable.pocket[i].position(1), gTable.pocket[i].colRadius, 32);
 	}
 
-	for(int i=0;i<gTable.parts.num;i++)	{		
-		//GLfloat RANDOMCOLOUR[] = { RandColourVal(), RandColourVal(), RandColourVal() };
-		glPushMatrix();
-		glTranslatef(gTable.parts.particles[i]->position(0),gTable.parts.particles[i]->position(1),gTable.parts.particles[i]->position(2));
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, SILVER);
-		glutSolidSphere(0.01f, 3, 3);
-		glPopMatrix();		
-	}
-
-
 	//draw the cue
 	if(gDoCue)	{
 		glBegin(GL_LINES);
