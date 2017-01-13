@@ -6,7 +6,7 @@ pocket class
 
 class pocket{
 public:
-	vec2 position;
+	vec2<float> position;
 	float drawRadius;
 	float colRadius;
 	pocket();

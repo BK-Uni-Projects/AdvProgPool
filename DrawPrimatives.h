@@ -1,6 +1,6 @@
 #pragma once
 
-const float PI		= 3.1416;
+const float PI		= 3.1416f;
 const float TWO_PI	= 6.2832f;
 
 /**

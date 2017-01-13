@@ -5,14 +5,14 @@
 extern table gTable;
 
 //cue 
-float gCueAngle = 0.0;
-float gCuePower = 0.25;
+float gCueAngle = 0.0f;
+float gCuePower = 0.25f;
 bool gCueControl[4] = { false,false,false,false };
 float gCueAngleSpeed = 2.0f; //radians per second
 float gCuePowerSpeed = 0.25f;
-float gCuePowerMax = 0.75;
-float gCuePowerMin = 0.1;
-float gCueBallFactor = 8.0;
+float gCuePowerMax = 0.75f;
+float gCuePowerMin = 0.1f;
+float gCueBallFactor = 8.0f;
 bool gDoCue = true;
 
 //camera
@@ -21,8 +21,8 @@ vec3 gCamLookAt(0.0, 0.0, 0.0);
 
 bool gCamRotate = true;
 
-float gCamRotSpeed = 0.2;
-float gCamMoveSpeed = 0.5;
+float gCamRotSpeed = 0.2f;
+float gCamMoveSpeed = 0.5f;
 
 bool gCamL = false;
 bool gCamR = false;
@@ -84,7 +84,7 @@ inline void KeyboardFunc(unsigned char key, int x, int y) {
 		// enter key
 		case(13): {
 			if (gDoCue) {
-				vec2 imp((-sin(gCueAngle) * gCuePower * gCueBallFactor),
+				vec2<float> imp((-sin(gCueAngle) * gCuePower * gCueBallFactor),
 					(-cos(gCueAngle) * gCuePower * gCueBallFactor));
 				gTable.balls[0].ApplyImpulse(imp);
 				gTable.CueballStruck = true;

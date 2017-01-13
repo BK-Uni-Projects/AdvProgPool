@@ -96,10 +96,10 @@ void RenderScene(void) {
 	//draw the table
 	for(int i=0;i<NUM_CUSHIONS;i++)	{	
 		glBegin(GL_LINE_LOOP);
-		glVertex3f (gTable.cushions[i].vertices[0](0), 0.0, gTable.cushions[i].vertices[0](1));
-		glVertex3f (gTable.cushions[i].vertices[0](0), 0.1, gTable.cushions[i].vertices[0](1));
-		glVertex3f (gTable.cushions[i].vertices[1](0), 0.1, gTable.cushions[i].vertices[1](1));
-		glVertex3f (gTable.cushions[i].vertices[1](0), 0.0, gTable.cushions[i].vertices[1](1));
+		glVertex3f (gTable.cushions[i].vertices[0](0), 0.0f, gTable.cushions[i].vertices[0](1));
+		glVertex3f (gTable.cushions[i].vertices[0](0), 0.1f, gTable.cushions[i].vertices[0](1));
+		glVertex3f (gTable.cushions[i].vertices[1](0), 0.1f, gTable.cushions[i].vertices[1](1));
+		glVertex3f (gTable.cushions[i].vertices[1](0), 0.0f, gTable.cushions[i].vertices[1](1));
 		glEnd();
 	}
 
@@ -132,7 +132,7 @@ void ChangeWindowSize(int width, int height) {
 	// Prevent a divide by zero, when window is too short
 	// (you cant make a window of zero width).
 	if (height == 0) height = 1;
-	float ratio = 1.0* width / height;
+	float ratio = 1.0f* width / height;
 
 	// Reset the coordinate system before modifying
 	glMatrixMode(GL_PROJECTION);

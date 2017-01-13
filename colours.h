@@ -3,7 +3,7 @@
 
 
 inline GLfloat RandColourVal(){
-	return rand() / (RAND_MAX + 1.);
+	return rand() / (RAND_MAX + 1.0f);
 }
 
 // Named colours for use with opengl r, g, b system

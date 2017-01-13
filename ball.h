@@ -31,8 +31,8 @@ public:
 	int index;
 	bool inPlay;
 
-	vec2 position;
-	vec2 velocity;
+	vec2<float> position;
+	vec2<float> velocity;
 	float radius;
 	bool firstContact;
 	int set;
@@ -51,7 +51,7 @@ public:
 
 	// mechanics
 	void Reset(void);
-	void ApplyImpulse(vec2 imp);
+	void ApplyImpulse(vec2<float> imp);
 	void ApplyFrictionForce(int ms);
 	void Update(int ms);
 
